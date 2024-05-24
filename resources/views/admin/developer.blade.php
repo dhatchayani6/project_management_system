@@ -68,7 +68,7 @@
                                             <th>Email</th>
                                             <th>Designation</th>
                                             <th>Mobile Number</th>
-                                            <th>Action</th>
+                                            <!-- <th>Action</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -79,15 +79,11 @@
                                                 <td>{{ $developer->email }}</td>
                                                 <td>{{ $developer->designation }}</td>
                                                 <td>{{ $developer->mobile_number }}</td>
-                                                <td>
-        <button class="btn btn-info btn-sm edit-developer" data-id="{{ $developer->id }}" data-toggle="modal" data-target="#editDeveloperModal">Edit</button>
-    </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
                     </div>
 
@@ -109,12 +105,12 @@
     @include('admin.script')
     <!-- End custom js for this page -->
 
-    <!-- Modal -->
+    <!-- Add Developer Modal -->
     <div class="modal fade" id="developerModal" tabindex="-1" aria-labelledby="developerModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title " id="developerModalLabel">Add Developer</h5>
+                    <h5 class="modal-title" id="developerModalLabel">Add Developer</h5>
                     <button type="button" class="close btn btn-primary" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -154,133 +150,65 @@
         </div>
     </div>
 
-<!-- Edit Developer Modal -->
-<div class="modal fade" id="editDeveloperModal" tabindex="-1" aria-labelledby="editDeveloperModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editDeveloperModalLabel">Edit Developer</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form id="editDeveloperForm">
-                @csrf
-                @method('PUT')
-                <div class="modal-body">
-                    <input type="hidden" id="editDeveloperId" name="developer_id">
-                    <div class="form-group">
-                        <label for="editBioid">BioID:</label>
-                        <input type="text" class="form-control" id="editBioid" name="bioid" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editName">Name:</label>
-                        <input type="text" class="form-control" id="editName" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editEmail">Email:</label>
-                        <input type="email" class="form-control" id="editEmail" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editDesignation">Designation:</label>
-                        <input type="text" class="form-control" id="editDesignation" name="designation" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editMobile">Mobile Number:</label>
-                        <input type="tel" class="form-control" id="editMobile" name="mobile" pattern="[0-9]{10}" required>
-                        <small class="form-text text-muted">Format: 10 digits</small>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- Edit Developer Modal -->
-<div class="modal fade" id="editDeveloperModal" tabindex="-1" aria-labelledby="editDeveloperModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editDeveloperModalLabel">Edit Developer</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form id="editDeveloperForm">
-                @csrf
-                @method('PUT')
-                <div class="modal-body">
-                    <input type="hidden" id="editDeveloperId" name="developer_id">
-                    <div class="form-group">
-                        <label for="editBioid">BioID:</label>
-                        <input type="text" class="form-control" id="editBioid" name="bioid" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editName">Name:</label>
-                        <input type="text" class="form-control" id="editName" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editEmail">Email:</label>
-                        <input type="email" class="form-control" id="editEmail" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editDesignation">Designation:</label>
-                        <input type="text" class="form-control" id="editDesignation" name="designation" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editMobile">Mobile Number:</label>
-                        <input type="tel" class="form-control" id="editMobile" name="mobile" pattern="[0-9]{10}" required>
-                        <small class="form-text text-muted">Format: 10 digits</small>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+    <!-- Edit Developer Modal -->
 
-
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
-    $(document).ready(function () {
-        $('#addDeveloperForm').submit(function (event) {
-            // Prevent the default form submission
-            event.preventDefault();
+        $(document).ready(function () {
+            fetchDevelopers();
 
-            // Serialize the form data
-            var formData = $(this).serialize();
-
-            // Send an AJAX request
-            $.ajax({
-                type: 'POST',
-                url: $(this).attr('action'),
-                data: formData,
-                success: function (response) {
-                    // Handle the success response
-                    $('#developerModal').modal('hide'); // Hide the modal
-                    location.reload(); // Reload the page to update the developer list
-                    alert('Developer added successfully.'); // Show success message
-                },
-                error: function (xhr, status, error) {
-                    // Handle the error response
-                    var errorMessage = xhr.responseText || 'Error adding developer. Please try again.';
-                    alert(errorMessage);
-                }
-            });
+            function fetchDevelopers() {
+                $.ajax({
+                    type: "GET",
+                    url: "/fetch-developers",
+                    dataType: "json",
+                    success: function (response) {
+                        $('tbody').html("");
+                        $.each(response.developers, function (key, item) {
+                            $('tbody').append('<tr>\
+                            <td>' + item.bioid + '</td>\
+                            <td>' + item.name + '</td>\
+                            <td>' + item.email + '</td>\
+                            <td>' + item.designation + '</td>\
+                            <td>' + item.mobile_number + '</td>\
+                            <td><button type="button" value="' + item.id + '" class="btn btn-primary edit-developer btn-sm">Edit</button></td>\
+                            <td><button type="button" value="' + item.id + '" class="btn btn-danger deletebtn btn-sm">Delete</button></td>\
+                        \</tr>');
+                        });
+                    }
+                });
+            }
         });
-    });
 
 
-    
 
-</script>
+        
+        $(document).ready(function () {
+            $('#addDeveloperForm').submit(function (event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    success: function (response) {
+                        $('#developerModal').modal('hide');
+                        location.reload();
+                        alert('Developer added successfully.');
+                    },
+                    error: function (xhr, status, error) {
+                        var errorMessage = xhr.responseText || 'Error adding developer. Please try again.';
+                        alert(errorMessage);
+                    }
+                });
+            });
+
+            
 
 
+        });
+    </script>
 </body>
 
 </html>
