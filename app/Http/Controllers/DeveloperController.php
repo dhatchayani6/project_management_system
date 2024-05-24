@@ -2,69 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Developer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Developer;
 
 class DeveloperController extends Controller
 {
     //
     public function show()
     {
-        $developers = Developer::all();
-        return view('admin.developer', compact('developers'));
+        return view('admin.developer');
     }
 
-
-    public function developer_add(Request $request)
+    public function store(Request $request)
     {
-        $developer = new Developer();
-        $developer->bioid = $request->bioid;
-        $developer->name = $request->name;
-        $developer->email = $request->email;
-        $developer->designation = $request->designation;
-        $developer->mobile_number = $request->mobile;
-        $developer->save();
-        return redirect()->back()->with('message', 'Developer added successfully!');
+        $validator = Validator::make($request->all(), [
+            'bioid' => 'required|max:191',
+            'name' => 'required|max:191',
+            'email' => 'required|email|max:191',
+            'designation' => 'required|max:191',
+            'mobile' => 'required|max:191',
+        ]);
 
-    }
-
-
-    public function edit_developer($id)
-    {
-        $developer = Developer::find($id);
-        if ($developer) {
+        if ($validator->fails()) {
             return response()->json([
-                'status' => 200,
-                'developer' => $developer,
+                'status' => 400,
+                'errors' => $validator->messages(),
             ]);
         } else {
-            return response()->json([
-                'status' => 404,
-                'message' => 'No developer Found.'
-            ]);
-        }
-
-    }
-
-    public function update_developer(Request $request, $id)
-    {
-        try {
-            $developer = Developer::find($id);
-
-            if (!$developer) {
-                return response()->json(['message' => 'Developer not found'], 404);
-            }
-
-            // Validate the request data
-            $request->validate([
-                'bioid' => 'required|string|max:255',
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|max:255',
-                'designation' => 'required|string|max:255',
-                'mobile' => 'required|string|max:15',
-            ]);
-
-            // Update the developer details
+            $developer = new Developer;
             $developer->bioid = $request->input('bioid');
             $developer->name = $request->input('name');
             $developer->email = $request->input('email');
@@ -72,17 +38,17 @@ class DeveloperController extends Controller
             $developer->mobile = $request->input('mobile');
             $developer->save();
 
-            return response()->json(['message' => 'Developer updated successfully', 'developer' => $developer]);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Server error'], 500);
+            return response()->json([
+                'status' => 200,
+                'message' => 'Developer added successfully'
+            ]);
         }
-
-
     }
-    
-    public function fetchDevelopers(){
-        $developers=Developer::all();
-        return view('admin.developer',compact('developers'));
 
+    public function fetch(){
+        $developer=Developer::all();
+        return response()->json([
+            'developer'=>$developer,
+        ]);
     }
 }

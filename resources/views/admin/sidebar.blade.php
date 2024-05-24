@@ -25,7 +25,7 @@
       </a>
     </li>
     <li class="nav-item menu-items">
-    <a class="nav-link" href="{{ url('/show') }}">
+    <a class="nav-link" href="{{ url('/developers') }}">
   <span class="menu-icon">
           <i class="mdi mdi-chart-bar"></i>
         </span>

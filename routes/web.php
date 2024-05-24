@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DeveloperController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,8 +37,6 @@ Route::get('/',[LoginController::class,'index']);
 Route::get('/homepage',[LoginController::class,'login']);
 
 
-Route::get('/show',[DeveloperController::class,'show']);
-Route::post('/add_developer',[DeveloperController::class,'developer_add']);
-Route::get('/get_developer/{id}',[DeveloperController::Class,'edit_developer']);
-Route::post('/edit_developer/{id}',[DeveloperController::class,'update_Developer']);
-Route::get('/fetch-developers',[DeveloperController::class,'fetchDevelopers']);
+Route::get('/developers', [DeveloperController::class, 'show']);
+Route::post('/add_developer', [DeveloperController::class, 'store']);
+Route::get('/fetch-developer',[DeveloperController::class,'fetch']);
