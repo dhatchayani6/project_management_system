@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap');
+
+body {
+    font-family: 'Lato', sans-serif;
+    background: #f8f9fa;
+    overflow: hidden;
+}
+
+a {
+    color: #007bff;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+.ftco-section {
+    padding: 7em 0;
+}
+
+.heading-section {
+    font-size: 30px;
+    color: #333;
+}
+
+.wrap {
+    display: flex;
+    /* width: 100%; */
+    justify-content: center;
+}
+
+.img {
+    width: 36%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.login-wrap {
+    width: 32%;
+    padding: 4em 2em;
+    background: #fff;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.checkbox-primary input[type="checkbox"]:checked+label::before {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.checkbox-primary label::before {
+    background-color: transparent;
+    border-color: #ced4da;
+}
+
+.social-media .social-icon {
+    display: inline-block;
+    margin-left: 5px;
+    color: #495057;
+    font-size: 18px;
+    transition: color 0.2s;
+}
+
+.social-media .social-icon:hover {
+    color: #007bff;
+}
