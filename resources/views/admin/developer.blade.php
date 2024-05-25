@@ -50,7 +50,7 @@
                                         <th>ACTION</th>
                                     </thead>
                                     <tbody>
-                                        
+
 
                                     </tbody>
                                 </table>
@@ -134,19 +134,19 @@
             //fetch developers
             fetchdeveloper();
 
-function fetchdeveloper(){
-    $.ajax({
-        type: "GET",
-        url: "/fetch-developer",
-        dataType: "json",
-        success: function (response) {
-            // Clear the tbody before appending new data
-            $('tbody').html("");
+            function fetchdeveloper() {
+                $.ajax({
+                    type: "GET",
+                    url: "/fetch-developer",
+                    dataType: "json",
+                    success: function (response) {
+                        // Clear the tbody before appending new data
+                        $('tbody').html("");
 
-            // Loop through each developer and append to tbody
-            $.each(response.developer, function (key, item) {
-                $('tbody').append(
-                    `<tr>
+                        // Loop through each developer and append to tbody
+                        $.each(response.developer, function (key, item) {
+                            $('tbody').append(
+                                `<tr>
                         <td>${item.bioid}</td>
                         <td>${item.name}</td>
                         <td>${item.email}</td>
@@ -159,11 +159,11 @@ function fetchdeveloper(){
                             <button type="button" value="${item.id}" class="delete_developer btn btn-danger btn-sm" data-id="${item.id}">DELETE</button>
                         </td>
                     </tr>`
-                );
-            });
-        }
-    });
-}
+                            );
+                        });
+                    }
+                });
+            }
 
 
 
