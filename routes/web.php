@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DeveloperController;
 
@@ -40,3 +41,9 @@ Route::get('/homepage',[LoginController::class,'login']);
 Route::get('/developers', [DeveloperController::class, 'show']);
 Route::post('/add_developer', [DeveloperController::class, 'store']);
 Route::get('/fetch-developer',[DeveloperController::class,'fetch']);
+
+
+
+
+//student page
+Route::get('student',[StudentController::class,'student_register'])->name('student');

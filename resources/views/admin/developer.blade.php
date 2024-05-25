@@ -170,7 +170,10 @@
             // Ajax for add developer
             $(document).on('click', '.add_developer', function (e) {
                 e.preventDefault();
-                var data = {
+                var data = 555555+3
+                
+                
+                {
                     'bioid': $('.bioid').val(),
                     'name': $('.name').val(),
                     'email': $('.email').val(),

@@ -17,9 +17,16 @@
                <li class="nav-item">
                   <a class="nav-link" href="{{ route('login') }}">LOGIN</a>
                </li>
-               <li class="nav-item" style="margin-left: 10px;"> <!-- Adjust the value according to your preference -->
-                  <a class="nav-link" href="{{ route('register') }}">REGISTER</a>
-               </li>
+               <li class="nav-item dropdown" style="margin-left: 10px;"> <!-- Adjust the value according to your preference -->
+  <a class="nav-link dropdown-toggle" href="#" id="registerDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    REGISTER
+  </a>
+  <div class="dropdown-menu" aria-labelledby="registerDropdown">
+    <a class="dropdown-item" href="#">ADMIN</a>
+    <a class="dropdown-item" href="#">DEVELOPER</a>
+    <a class="dropdown-item" href="{{route('student')}}">STUDENT</a>
+  </div>
+</li>
             </ul>
          </div>
       </nav>
