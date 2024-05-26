@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    @include('home.header')
+    @include('home.css')
 </head>
 
 <body>
@@ -20,7 +22,7 @@
                             <h3 class="mb-4">Register</h3>
                         </div>
                         <!-- Registration Form -->
-                        <form method="POST" action="{{ route('register') }}" class="signup-form">
+                        <form method="POST" action="{{ route('add_student') }}" class="signup-form">
                             @csrf
                             <div class="form-row">
                                 <div class="form-group col-md-6 mb-3">
@@ -34,32 +36,42 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6 mb-3">
+                                    <label class="label" for="email">Email</label>
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label class="label" for="password">Password</label>
+                                    <input id="password" type="password" class="form-control" name="password" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6 mb-3">
                                     <label class="label" for="title">Project Title</label>
-                                    <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}" required>
+                                    <input id="title" type="text" class="form-control" name="title" required>
                                 </div>
                                 <div class="form-group col-md-6 mb-3">
                                     <label class="label" for="description">Project Description</label>
-                                    <textarea id="description" class="form-control" name="description" rows="4" required>{{ old('description') }}</textarea>
+                                    <textarea id="description" class="form-control" name="description" rows="4" required></textarea>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6 mb-3">
                                     <label class="label" for="mentor_name">Mentor Name</label>
-                                    <input id="mentor_name" type="text" class="form-control" name="mentor_name" value="{{ old('mentor_name') }}" required>
+                                    <input id="mentor_name" type="text" class="form-control" name="mentor_name"" required>
                                 </div>
                                 <div class="form-group col-md-6 mb-3">
                                     <label class="label" for="mentor_number">Mentor Number</label>
-                                    <input id="mentor_number" type="text" class="form-control" name="mentor_number" value="{{ old('mentor_number') }}" required>
+                                    <input id="mentor_number" type="text" class="form-control" name="mentor_number" required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6 mb-3">
                                     <label class="label" for="student_mobile">Student Mobile Number</label>
-                                    <input id="student_mobile" type="text" class="form-control" name="student_mobile" value="{{ old('student_mobile') }}" required>
+                                    <input id="student_mobile" type="text" class="form-control" name="student_mobile" required>
                                 </div>
                                 <div class="form-group col-md-6 mb-3">
                                     <label class="label" for="batch_year">Batch/Year</label>
-                                    <input id="batch_year" type="text" class="form-control" name="batch_year" value="{{ old('batch_year') }}" required>
+                                    <input id="batch_year" type="text" class="form-control" name="batch_year"  required>
                                 </div>
                             </div>
                             <div class="form-group">
