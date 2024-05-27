@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>PROJECT MANAGEMENT SYSTEM</title>
     <meta charset="utf-8">
@@ -11,7 +10,6 @@
     @include('home.header')
     @include('home.css')
 </head>
-
 <body>
     <section class="ftco-section">
         <div class="row justify-content-center">
@@ -21,23 +19,23 @@
                         <div class="w-100">
                             <h3 class="mb-4">Register</h3>
                         </div>
-                        <!-- Registration Form -->
-                        <form method="POST" action="{{ route('add_student') }}" class="signup-form">
+                        
+                        <form id="studentForm" method="POST" action="{{ route('add_student') }}" class="signup-form">
                             @csrf
                             <div class="form-row">
                                 <div class="form-group col-md-6 mb-3">
                                     <label class="label" for="regno">Registration Number</label>
-                                    <input id="regno" type="text" class="form-control" name="regno" value="{{ old('regno') }}" required>
+                                    <input id="regno" type="text" class="form-control" name="regno" required>
                                 </div>
                                 <div class="form-group col-md-6 mb-3">
                                     <label class="label" for="name">Name</label>
-                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required>
+                                    <input id="name" type="text" class="form-control" name="name" required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6 mb-3">
                                     <label class="label" for="email">Email</label>
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                    <input id="email" type="email" class="form-control" name="email" required>
                                 </div>
                                 <div class="form-group col-md-6 mb-3">
                                     <label class="label" for="password">Password</label>
@@ -57,7 +55,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6 mb-3">
                                     <label class="label" for="mentor_name">Mentor Name</label>
-                                    <input id="mentor_name" type="text" class="form-control" name="mentor_name"" required>
+                                    <input id="mentor_name" type="text" class="form-control" name="mentor_name" required>
                                 </div>
                                 <div class="form-group col-md-6 mb-3">
                                     <label class="label" for="mentor_number">Mentor Number</label>
@@ -71,35 +69,61 @@
                                 </div>
                                 <div class="form-group col-md-6 mb-3">
                                     <label class="label" for="batch_year">Batch/Year</label>
-                                    <input id="batch_year" type="text" class="form-control" name="batch_year"  required>
+                                    <input id="batch_year" type="text" class="form-control" name="batch_year" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="form-control btn btn-primary rounded submit px-3">Register</button>
                             </div>
                         </form>
-                        <!-- Switch between login and register -->
+                        
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        // JavaScript to toggle between login and register forms
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('.toggle-form').forEach(function (link) {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelectorAll('form').forEach(function (form) {
-                        form.classList.toggle('hidden');
-                    });
+        $(document).ready(function() {
+            $('#studentForm').on('submit', function(e) {
+                e.preventDefault();
+
+                var data = {
+                    '_token': '{{ csrf_token() }}',
+                    'regno': $('#regno').val(),
+                    'name': $('#name').val(),
+                    'email': $('#email').val(),
+                    'password': $('#password').val(),
+                    'project_title': $('#title').val(),
+                    'project_description': $('#description').val(),
+                    'mentor_name': $('#mentor_name').val(),
+                    'mentor_number': $('#mentor_number').val(),
+                    'student_mobile': $('#student_mobile').val(),
+                    'batch_year': $('#batch_year').val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('add_student') }}",
+                    data: data,
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status === 200) {
+                            alert(response.message);
+                            $('#studentForm')[0].reset();
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert('An error occurred. Please try again.');
+                        console.error(xhr.responseText);
+                    }
                 });
             });
         });
     </script>
 </body>
-
 </html>

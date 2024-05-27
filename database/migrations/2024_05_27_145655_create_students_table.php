@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('mentor_number');
             $table->string('student_mobile');
             $table->string('batch_year');
+            $table->string('status')->default('pending'); 
             $table->timestamps();
         });
     }

@@ -43,5 +43,5 @@ Route::get('/fetch-developer',[DeveloperController::class,'fetch']);
 //student page
 Route::get('/students',[StudentController::class,'show_student']);
 Route::get('student',[StudentController::class,'student_register'])->name('student');
-Route::post('/add_student',[StudentController::class,'store_student'])->name('add_student');
+// Route::post('/add_student',[StudentController::class,'store_student'])->name('add_student');
 Route::get('/student/fetch-students',[StudentController::class,'fetchstudent']);
